@@ -4,11 +4,19 @@ pipeline {
         nodejs "node"
     }
     stages {
+        stage('Cleanup workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('increment version') {
             steps {
                 script {
                     // enter app directory, because that's where package.json is located
-                    dir("app") { // cd app/
+                    dir("app") { 
+                        sh "ls -la"
+                        sh "node --version"
+                        sh "npm --version"
                         // update application version in the package.json file with one of these release types: patch, minor or major
                         // this will commit the version update
                         sh "npm version minor"
