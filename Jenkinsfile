@@ -8,9 +8,9 @@ pipeline {
             steps {
                 script {
                     // enter app directory, because that's where package.json is located
-                    dir("app") {
+                    dir("app") { // cd app/
                         // update application version in the package.json file with one of these release types: patch, minor or major
-                        this will commit the version update
+                        // this will commit the version update
                         sh "npm version minor"
 
                         // read the updated version from the package.json file
@@ -42,9 +42,9 @@ pipeline {
         stage('Build and Push docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]){
-                    sh "docker build -t docker-hub-id/myapp:${IMAGE_NAME} ."
+                    sh "docker build -t stephane48/myapp:${IMAGE_NAME} ."
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh "docker push docker-hub-id/myapp:${IMAGE_NAME}"
+                    sh "docker push stephane48/myapp:${IMAGE_NAME}"
                 }
             }
         }
@@ -58,7 +58,7 @@ pipeline {
                         sh 'git remote set-url origin https://github.com/stephane48/jenkins-demo.git'
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:jenkins-jobs'
+                        sh 'git push origin HEAD:main'
                     }
                 }
             }
