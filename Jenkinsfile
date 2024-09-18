@@ -49,6 +49,8 @@ pipeline {
         }
         stage('Build and Push docker image') {
             steps {
+                sh "docker --version"
+                sh "which docker"
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]){
                     sh "docker build -t stephane48/myapp:${IMAGE_NAME} ."
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
