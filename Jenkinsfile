@@ -4,11 +4,11 @@ pipeline {
         nodejs "node"
     }
     stages {
-        stage('Cleanup workspace') {
-            steps {
-                cleanWs()
-            }
-        }
+        // stage('Cleanup workspace') {
+        //     steps {
+        //         cleanWs()
+        //     }
+        // }
         stage('increment version') {
             steps {
                 script {
