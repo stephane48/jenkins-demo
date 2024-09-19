@@ -61,7 +61,7 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    sh "pwd "
+                    sh "echo $BUILD_NUMBER"
                     // withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     //     // git config here for the first time run
                     //     sh 'git config --global user.email "stephanekamdem09@gmail.com"'
